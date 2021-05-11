@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import MovieCard from '../components/MovieCard';
+import Loading from '../components/Loading';
 
 import * as movieAPI from '../services/movieAPI';
 
@@ -26,18 +27,12 @@ class MovieList extends Component {
   render() {
     const { movies } = this.state;
     const { loading } = this.state;
-
     // Render Loading here if the request is still happening
-    const loadingElement = <span> Carregando... </span>;
-
+    if (loading) {
+      return <Loading />;
+    }
     return (
       <div data-testid="movie-list">
-        {loading}
-        {' '}
-        ?
-        { loadingElement }
-        {' '}
-        :
         {
           movies.map((movie) => (<MovieCard key={ movie.title } movie={ movie } />))
         }
