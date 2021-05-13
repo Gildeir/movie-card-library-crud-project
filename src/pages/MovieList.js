@@ -22,12 +22,14 @@ class MovieList extends Component {
 
   async fetchMovies() {
     const result = await movieAPI.getMovies();
+    console.log(result);
     this.setState({ movies: result, loading: false });
   }
 
   render() {
     const { movies } = this.state;
     const { loading } = this.state;
+
     // Render Loading here if the request is still happening
     if (loading) {
       return <Loading />;
