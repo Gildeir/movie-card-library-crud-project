@@ -7,7 +7,6 @@ import { Loading } from '../components';
 class MovieDetails extends Component {
   constructor(props) {
     super(props);
-    console.log(this.props);
 
     this.state = {
       movie: {},
@@ -22,10 +21,8 @@ class MovieDetails extends Component {
 
   async fetchMovie() {
     const { match: { params: { id } } } = this.props;
-    console.log(id);
     const result = await movieAPI.getMovie(id);
     this.setState({ movie: result, loading: false });
-    console.log(result);
   }
 
   render() {
