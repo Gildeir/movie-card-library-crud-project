@@ -13,6 +13,7 @@ class MovieDetails extends Component {
       loading: true,
     };
     this.fetchMovie = this.fetchMovie.bind(this);
+    this.removeMovie = this.removeMovie.bind(this);
   }
 
   componentDidMount() {
@@ -25,9 +26,15 @@ class MovieDetails extends Component {
     this.setState({ movie: result, loading: false });
   }
 
+  removeMovie() {
+    const { match: { params: { id } } } = this.props;
+    movieAPI.deleteMovie(id);
+  }
+
   render() {
-    const { movie: { title, storyline, imagePath, genre, rating, subtitle, id },
+    const { movie: { title, storyline, imagePath, genre, rating, subtitle },
       loading } = this.state;
+    const { location: { pathname } } = this.props;
     // Change the condition to check the state
     if (loading) {
       return <Loading />;
@@ -43,7 +50,8 @@ class MovieDetails extends Component {
         <p>{ `Rating: ${rating}` }</p>
 
         <Link to="/">VOLTAR</Link>
-        <Link to={ `/movies${id}/edit` }>EDITAR</Link>
+        <Link to={ `${pathname}/edit` }>EDITAR</Link>
+        <Link to="/" onClick={ this.removeMovie }>DELETAR</Link>
       </div>
     );
   }
